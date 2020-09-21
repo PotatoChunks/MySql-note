@@ -65,6 +65,43 @@ create table test(
     name char(10));
 ```
 
+##### 设置主键
+
+```js
+create table goudan(
+    sno char(6) primary key,//将sno这一列设置为主键
+	sdata datetime);
+```
+
+主键**不能重复**
+且不能为空
+
+##### 创建组合主键
+
+```js
+create table dachui(
+	sno char(6),
+    cno char(6),
+    primary key(sno,cno)//设置组合主键的方法
+);
+```
+
+主键约束定义不在同一列时一列中的值**可以重复** 
+
+##### 创建外键约束表
+
+有些表需要有父子关系
+用外键约束
+
+```js
+create table goudan(
+    sno char(6),
+    cno char(6),
+    score decimal(4,1),
+    foreign key(sno) references dachui(sno)//让自己的sno列参照dachui的sno列
+);
+```
+
 
 
 ### 查找
@@ -92,7 +129,7 @@ show create table 数据表名;
 #### 以二维表结构展示数据表
 
 ```js
-describe 数据表名;
+describe 数据表名;//简写desc 数据表名
 ```
 
 ### 修改
@@ -142,6 +179,56 @@ alter table 表名称 modify 字段名 新类型;
 alter table 表名称 rename 新名称;
 ```
 
+#### 将表中的一列设置为主键
+
+```js
+alter table goudan//回车
+add primary key(con);//con列改为主键
+```
+
+会自动检查是否满足条件
+不满足条件设置失败
+
+#### 删除主键约束
+
+```js
+alter table dachui
+drop primary key;
+```
+
+只是删除了主键约束没有删除字段或字段组
+
+#### 唯一性约束
+
+这个表中的唯一性
+
+```js
+alter table goudan
+add unique(cname);//将unique设置为表中的唯一字段
+```
+
+也就是在`cname`这一列中不能有重复的
+
+#### 修改创建外键约束
+
+在已经添加的表中增加外键约束
+
+```js
+alter table goudan
+add constraint sc_con foreign key(cno) references dachui(cno);
+//创建外键名为sc_con 把自己的cno列参照dachui表中的cno列进行约束
+```
+
+#### 删除外键约束
+
+只是删除了外键约束
+并没有删除结构
+删除外键只需要删除外键名即可
+
+```js
+alter table goudan drop foreign key sc_cno;//删除goudan表中的外键sc_cno
+```
+
 
 
 ### 删除
@@ -161,7 +248,7 @@ drop database if exists gouda;//添加了 if exists 这个可选项之后报错�
 #### 删除数据库中的数据表
 
 ```js
-drop table goudan;
+drop table goudan;//goudan表
 ```
 
 #### 删除数据表中的字段
