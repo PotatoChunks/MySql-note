@@ -102,6 +102,35 @@ create table goudan(
 );
 ```
 
+#### 表数据的添加
+
+##### 向所有的列表添加数据`insert`
+
+```js
+insert into goudan(sno,sname,sgender,sbirthday,sdept)//必须列出所有的字段顺序可以不一致
+values('18110','大锤','女','2002-02-14 00:00:00','d12001');//值一一对应
+```
+
+##### 查看是否添加成功
+
+```js
+select * from goudan;
+```
+
+##### 省略字段名的方式添加
+
+```js
+insert into goduan
+values('18111','潘安','男','2001-03-05 00:00:00','d12003');//因为没有字段名所以必须按照定义的顺序来添加
+```
+
+##### 表的指定字段添加值
+
+```js
+insert into goudan(sno,sname,sgender)
+values('18112','狗蛋','男');//值一一对应
+```
+
 
 
 ### 查找
