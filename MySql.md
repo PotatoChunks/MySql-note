@@ -1,6 +1,8 @@
 `MySql`数据库是关系型数据库
 `MySQL`数据库不区分大小写
 
+在本文中出现的部分语法如 `goudan,dachui,cuihua`都**不是**固定语法可以起任意名称
+
 ### 增加
 
 #### 添加数据库
@@ -169,6 +171,24 @@ show create table 数据表名;
 describe 数据表名;//简写desc 数据表名
 ```
 
+#### 数据查寻`select`
+
+查询所有数值
+
+```js
+select * from goudan;//不建议 数据过多时消耗性能大
+```
+
+#### 查询指定字段的所有值
+
+```js
+selsct sname,sage from goudan;
+```
+
+
+
+
+
 ### 修改
 
 #### 将字符集编码改为`utf-8`
@@ -266,7 +286,24 @@ add constraint sc_con foreign key(cno) references dachui(cno);
 alter table goudan drop foreign key sc_cno;//删除goudan表中的外键sc_cno
 ```
 
+#### 表中数据的修改`update`
 
+修改所有数据
+
+```js
+update dachui
+set sname='狗蛋';//将sname这一列全部修改为狗蛋
+```
+
+##### 修改部分数据
+
+```js
+update goudan
+set sname='大锤'
+where sno='18101';//where判断 sno等于18102的这一条数据
+```
+
+如果表中有多个值满足判断的条件那么将一起更改
 
 ### 删除
 
@@ -292,6 +329,22 @@ drop table goudan;//goudan表
 
 ```js
 alter table 表名称 drop 字段名称;
+```
+
+#### 表中数据的删除`delete`
+
+删除全部数据
+
+```js
+delete from goudan//删除goudan里的全部数据
+```
+
+##### 删除部分数据
+
+```js
+delete from goudan
+where sno='18101' and con='110013';
+//删除表中cno为18101的数据和con为110013的数据
 ```
 
 
