@@ -241,7 +241,27 @@ select distinct sgender from goudan;//distinct关键字为不重复
 
 ```js
 select sno,sname from goudan where sname like '狗%';
-//% 通配符 可以匹配任意长度的字符串 包括空字符串
+//% 通配符 可以匹配任意长度的字符串 包括空字符串 可以代表任意字符
+```
+
+`_ 通配符 可以匹配任意长度的字符串 包括空字符串` 只能代表**一个**字符
+
+```js
+select * from goudan where sname like '王_锤';
+```
+
+#### `and`多条件查询
+
+```js
+select * from goudan where sno='18101' and sname='狗蛋';
+//查询学号为18101并且名称是狗蛋的值
+```
+
+#### `or`多条件查询
+
+```js
+select * from goudan where sno<'18101' or sdept='d12001';
+//or是 或者 的意思
 ```
 
 
