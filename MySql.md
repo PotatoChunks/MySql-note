@@ -185,7 +185,64 @@ select * from goudan;//不建议 数据过多时消耗性能大
 selsct sname,sage from goudan;
 ```
 
+#### 条件查询
 
+```js
+selsct sno,sname from goudan where sno='19102';//sno为学号sname为名称
+```
+
+#### in查询多条
+
+```js
+select sno,sname from goudan where sno in('18102','18103','18105');
+```
+
+查询学号不为特定值
+
+```js
+select sno,sname from goudan where not in('18102','18103');//只要加上not就可以
+```
+
+#### 查询区间范围内的值
+
+```js
+select sno,sname from goudan where sno between '值一' and '值二';
+//查询的解构包含值一和值二
+```
+
+查询学号不为特定区间的值
+
+```js
+select sno,sname from goudan where sno not between '值一' and '值二';
+```
+
+#### 空值查询
+
+```js
+select sno,sname,sgender from goudan where sgender is null;
+//查询sgender是否是null
+```
+
+非空值的查询
+
+```js
+select sno,sname,sgender from goudan where sgender is not null;
+//sgender不为空的值
+```
+
+#### 查询记录不重复
+
+```js
+select distinct sgender from goudan;//distinct关键字为不重复
+//查询sgender查询记录不重复
+```
+
+#### 字符串模糊查询
+
+```js
+select sno,sname from goudan where sname like '狗%';
+//% 通配符 可以匹配任意长度的字符串 包括空字符串
+```
 
 
 
