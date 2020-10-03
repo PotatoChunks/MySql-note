@@ -264,6 +264,99 @@ select * from goudan where sno<'18101' or sdept='d12001';
 //or是 或者 的意思
 ```
 
+| 关系运算符 | 说明     |
+| ---------- | -------- |
+| =          | 等于     |
+| <>         | 不等于   |
+| !=         | 不等于   |
+| <          | 小于     |
+| <=         | 小于等于 |
+| >          | 大于     |
+| >=         | 大于等于 |
+
+#### 分类汇总查询
+
+聚集函数
+
+| 函数名  | 作用             |
+| ------- | :--------------- |
+| count() | 返回某列的行数   |
+| sum()   | 返回某劣值的和   |
+| avg()   | 返回某列的平均值 |
+| max()   | 返回某列的最大值 |
+| min()   | 返回某列的最小值 |
+
+##### 查询一共有多少条记录
+
+```js
+select count(*) from goudan;//goudan数据表中有多少记录
+```
+
+##### 查询平均值
+
+```js
+select sname,avg(scorge) from goudan GROUP BY sname;
+//查询goudan表中scorge的平均值
+```
+
+`goudan`表中`scorge`平均值大于80的所有学生`sno`的值
+
+```js
+select sno,avg(scorge) from goudan group by sno HAVING avg(scorge)>80;
+```
+
+#### 查询结果排序
+
+`asc`升序, 默认升序
+`desc`降序
+
+```js
+select sno,sname,sdept from goudan ORDER BY sno;
+//查询goudan表按照sno进行排序
+```
+
+用`asc`进行排序
+
+```js
+select sno,sname,sdept from goudan order by sno asc;
+```
+
+用`desc`进行排序
+
+```js
+select sno,sname,sdept from goudan order by sno desc;
+```
+
+性别用降序学号用升序
+
+```js
+select sno,sname,sgender from goudan order by sgender desc, sno acs;
+//开始用sgender来排序当sgender相同时用sno排序
+```
+
+#### 限制查询`limit`
+
+```js
+select sno,sname,sgender from goudan LIMIT 4;//显示表前四条记录
+```
+
+第五位到第八位 
+
+```js
+select sno,sname,sgender from goudan limit 4,4//第五位到第八位
+```
+
+#### 联合查询
+
+`union`不包含重复行
+`union all`包含重复行
+
+```js
+select cno,cname,sgender,sdept from goudan where sgender='女' 
+UNION 
+select cno,cname,sgender,sdept grom goudan where sdept='d12001';
+```
+
 
 
 ### 修改
