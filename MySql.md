@@ -357,7 +357,88 @@ UNION
 select cno,cname,sgender,sdept grom goudan where sdept='d12001';
 ```
 
+#### 多表查询
 
+交叉查询
+存在大量的重复数据
+
+```js
+select * from dachui CROSS JOIN goudan;//展示dachui表和goudan表的所有数据
+```
+
+##### 内连接
+
+```js
+select * from dachui INNER JOIN goudan
+ON dachui.snum=goudan.snum;//dachui表的snum等于goudan的snum的数据
+//只有两个表snum相等的数据才出现在结果当中
+```
+
+表别名
+
+```js
+select s.sno,sname from goudan s INNER JOIN dachui d ON s.sno=d.sno;
+//简化数据表的名称 但是 一旦用了别名不能用原名 否则报错
+```
+
+##### 外连接
+
+```js
+select sname,deptname from dachui d LEFT JOIN goudan g
+ON d.deptname=g.deptname;//左外连接
+```
+
+以谁为标准谁就在左
+右链接 查询结果包括**右表中**的**所有**记录和**左表中符合**链接**条件**的记录
+**如果**右表中的**某条记录在左表不存在**,则在左表中显示`null`
+
+```js
+select sname,deptname from goudan g RIGHT JOIN dachui d
+ON g.deptname=d.deptname;
+```
+
+##### 自连接
+
+自己链接自己
+一定要用表别名
+
+```js
+select work.name,work.num,student.name,student.num from goudan work INNER JOIN goudan student ON work.num=student.name;
+```
+
+#### 子查询
+
+一个查询语句嵌套在另一个查询语句的内部
+
+```js
+select * from goudan
+where sdate>(select sdate from goudan where name='大锤');
+//先查询名字叫大锤的日期然后比较大小
+```
+
+子查询的参数
+
+| 操作符 | 含义                 |
+| ------ | -------------------- |
+| in     | 等于列表中的某一个值 |
+| any    | 与列表中的任意值比较 |
+| all    | 与列表中的所有值比较 |
+
+```js
+select name from goudan
+where num in (select num from dachui where num='210203');
+```
+
+#### 相关子查询
+
+```js
+select * from goudan
+where EXISTS (select num from goudan where year(date)=2000);//查询是否有2000年出生的人
+```
+
+`EXISTS`查询的结果返回真和假
+如果为真继续执行
+如果为加则不执行外层
 
 ### 修改
 
