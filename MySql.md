@@ -600,3 +600,125 @@ where sno='18101' and con='110013';
 
 
 
+## 索引
+
+### 索引的优点
+
+1. 保证数据表中的数据的唯一性
+2. 加快数据表的检索速度
+3. 加速表和表之间的联系
+4. 使用分组和排序子句进行数据检索时减少检索时间
+5. 在查询过程中使用优化隐藏器提高系统的性能
+
+### 索引的缺点
+
+1. 创建索引耗费时间且随着数据量的增加而增加
+2. 创建索引占物理空间
+3. 索引需要动态的维护降低了数据的维护速度
+
+### 适合创建索引的条件
+
+1. 经常需要搜索的列上面
+2. 作为主键的列上面
+3. 经常作为连接的列上面
+4. 经常需要根据范围进行搜素的列上
+5. 经常需要排序的列上
+6. 经常使用`where`子句中的列上
+
+### 主索引
+
+必须在主键字段创建的索引
+
+### 普通索引
+
+有`key`或`index`定义的索引,`MySQL`中的基本索引类型
+
+### 唯一索引
+
+由`unique`定义的索引 该索引值所在的字段的值必须是唯一的
+
+### 全文索引
+
+由`fulltext`定义的索引 创建在字符或文本类型的字段上 **注意**只有`MySAM`存储引擎支持
+
+### 单列索引
+
+是指在表中单个字段上创建的索引
+
+### 组合索引
+
+在表中将多个字段创建一个组合索引
+在组合索引中 查询条件只有使用多个字段中的第一个字段时该索引才会被使用
+一个表可以有多个单例索引,但这不是组合索引,因为组合索引是由多个字段创建的一个索引
+
+## 创建索引
+
+### 创建普通索引
+
+```js
+create index dachui ON goudan(name);
+//给goudan数据表中的name字段创建了dachui索引
+//默认长度不限制 升序索引
+```
+
+### 创建唯一索引
+
+```js
+create UNIQUE index 索引名 ON 表名(字段名[(长度)] [ASC|DESC]);
+```
+
+```js
+create unique index goudan ON dachui(sno DESC);
+//给dachui数据表中的sno字段创建了goudan唯一索引 索引降序排列
+```
+
+### 创建全文索引
+
+```js
+create FULLTEXT index 索引名 ON 表名(字段名[(长度)] [ASC|DESC]);
+```
+
+```js
+create fulltext index goudan2 ON dachui(address);
+//将dachui数据表的address字段创建了全文索引goudan2
+```
+
+### 创建多列索引
+
+```js
+create index dachui on goudan(sno,sname);
+//在goudan数据表中创建名为dachui的多列索引
+```
+
+### `alter table`创建索引
+
+```js
+alter table 表名 add [UNIQUE|FULLTEXT] index 索引名 (字段名[(长度)] [ACS|DESC]);
+```
+
+`alter tablr`一次只能创建多个索引 `create index` 一次只能创建一个
+`alter tablr`可以不指定索引名,默认为第一列列名 `create index`必须指定索引名
+
+## 索引的查看和删除
+
+数据库中索引文件的查看
+
+```js
+show index from 数据库表明
+```
+
+### 索引的删除
+
+语法一
+
+```js
+ALTER TABLE 表名 DROP INDEX 索引名;
+```
+
+语法二
+
+```js
+DROP INDEX 索引名 ON 表明;
+```
+
+
