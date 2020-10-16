@@ -704,7 +704,7 @@ alter table 表名 add [UNIQUE|FULLTEXT] index 索引名 (字段名[(长度)] [A
 数据库中索引文件的查看
 
 ```js
-show index from 数据库表明
+show index from 数据库表名
 ```
 
 ### 索引的删除
@@ -718,7 +718,7 @@ ALTER TABLE 表名 DROP INDEX 索引名;
 语法二
 
 ```js
-DROP INDEX 索引名 ON 表明;
+DROP INDEX 索引名 ON 表名;
 ```
 
 ## 视图
@@ -755,7 +755,7 @@ create view view_stu(学号,姓名,出生日期) as select sno,sname,sdata from 
 ### 查看
 
 ```js
-select * from view_stu;
+select * from 视图名;
 ```
 
 ### 查看视图定义
@@ -788,5 +788,4 @@ UPDATE 视图名 SET 字段名1=表达式1[,字段名2=表达式2,...][WHERE 条
 ```js
 DROP VIEW [IF EXISTS] 视图名1[,视图名2,...];//如果不写 IF EXISTS 要保证用户指定删除的视图已存在 否则报错
 ```
-
 
